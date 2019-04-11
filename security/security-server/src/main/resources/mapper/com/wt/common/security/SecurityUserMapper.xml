@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org/DTD Mapper 3.0" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.wt.common.security.dao.SecurityUserMapper">
+    <select id="findAll" resultType="com.wt.common.security.domain.SecurityUser">
+        select *
+        from SecurityUserT
+    </select>
+
+    <select id="findById" resultType="com.wt.common.security.domain.SecurityUser">
+        select *
+        from SecurityUserT
+        where userId = ${id}
+    </select>
+
+    <insert id="add" parameterType="com.wt.common.security.domain.SecurityUser">
+        insert into SecurityUserT(name, sex, birthday)
+        values (#{entity.name}, #{entity.sex}, #{entity.birthday})
+    </insert>
+
+    <insert id="addBatch" parameterType="java.util.List">
+        insert into SecurityUserT(name, sex, birthday)
+        values
+        <foreach collection="entities" item="entity" index="index" separator=",">
+            (
+            #{entity.name}, #{entity.sex}, #{entity.birthday}
+            )
+        </foreach>
+    </insert>
+
+
+    <delete id="delete" parameterType="java.io.Serializable">
+        delete
+        from SecurityUserT
+        where userId = ${id}
+    </delete>
+
+    <update id="update" parameterType="com.wt.common.security.domain.SecurityUser">
+        update SecurityUserT
+        set name     = #{entity.name},
+            birthday = #{entity.birthday},
+            sex      = #{entity.sex}
+        where userId = #{entity.userId}
+    </update>
+    <!--【知识点】，高性能批量更新-->
+    <update id="updateBatch" parameterType="java.util.List">
+        update SecurityUserT
+        <trim prefix="set" suffixOverrides=",">
+            <trim prefix="name=case" suffix="end,">
+                <foreach collection="entities" item="entity" index="index">
+                    <if test="entity.userId!=null">
+                        when userId = ${entity.userId} then #{entity.name}
+                    </if>
+                </foreach>
+            </trim>
+            <trim prefix="birthday=case" suffix="end,">
+                <foreach collection="entities" item="entity" index="index">
+                    <if test="entity.userId!=null">
+                        when userId = ${entity.userId} then #{entity.birthday}
+                    </if>
+                </foreach>
+            </trim>
+            <trim prefix="sex=case" suffix="end,">
+                <foreach collection="entities" item="entity" index="index">
+                    <if test="entity.userId!=null">
+                        when userId = ${entity.userId} then #{entity.sex}
+                    </if>
+                </foreach>
+            </trim>
+        </trim>
+        where
+        <foreach collection="entities" separator="or" item="entity" index="index">
+            userId = ${entity.userId}
+        </foreach>
+    </update>
+
+    <update id="logicDelete">
+        update SecurityUserT
+        set deleteFlag = true
+        where userId = ${id}
+    </update>
+</mapper>
