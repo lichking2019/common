@@ -1,9 +1,12 @@
 package com.wt.common.security.domain;
 
 import com.wt.common.security.enums.SexEnum;
+import com.wt.master.core.annotation.Transparent;
 import lombok.Data;
 
+import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 
 /**
  * @ProjectName: study
@@ -18,7 +21,7 @@ public class SecurityUser {
     /**
      * 用户ID
      */
-    private int userId;
+    private Serializable userId;
 
     /**
      * 用户姓名
@@ -37,4 +40,15 @@ public class SecurityUser {
      * 删除标识
      */
     private boolean deleteFlag;
+
+    /**
+     * 用户所属的机构Id
+     */
+    private Serializable unitId;
+
+    /**
+     * 用户对应的角色Id
+     */
+    @Transparent
+    private List<Serializable> roleIdList;
 }

@@ -1,31 +1,38 @@
 package com.wt.common.security.service.impl;
 
-import com.wt.common.security.dao.SecurityMenuMapperSupport;
+import com.wt.common.security.dao.SecurityMenuMapper;
 import com.wt.common.security.domain.SecurityMenu;
-import com.wt.common.security.domain.SecurityUser;
 import com.wt.common.security.service.SecurityMenuService;
-import com.wt.common.security.service.SecurityUserService;
 import com.wt.master.core.base.support.ServiceSupport;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CachePut;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
+
+import java.io.Serializable;
 
 /**
  * 菜单服务
  */
 @Service
-public class SecurityMenuServiceImpl extends ServiceSupport<SecurityMenu, SecurityMenuMapperSupport> implements SecurityMenuService {
+public class SecurityMenuServiceImpl extends ServiceSupport<SecurityMenu, SecurityMenuMapper> implements SecurityMenuService {
     @Autowired
-    private SecurityMenuMapperSupport securityMenuMapper;
+    private SecurityMenuMapper securityMenuMapper;
 
 
     @Override
-    protected SecurityMenuMapperSupport getMapper() {
+    protected SecurityMenuMapper getMapper() {
         return securityMenuMapper;
     }
 
     @Override
     protected Class<SecurityMenu> getEntityType() {
         return SecurityMenu.class;
+    }
+
+    @Override
+    @Cacheable(value = "SecurityMenu",key = "#root.targetClass+'.'+#root.methodName+'#'+#entityId")
+    public SecurityMenu findById(Serializable entityId) {
+        return super.findById(entityId);
     }
 }

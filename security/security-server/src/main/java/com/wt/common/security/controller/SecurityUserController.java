@@ -1,6 +1,8 @@
 package com.wt.common.security.controller;
 
 import com.wt.common.security.domain.SecurityUser;
+import com.wt.common.security.domain.SecurityUserRole;
+import com.wt.common.security.service.SecurityUserRoleService;
 import com.wt.common.security.service.SecurityUserService;
 import com.wt.master.core.base.BaseController;
 import com.wt.master.core.base.BaseControllerSecurityUser;

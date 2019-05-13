@@ -1,6 +1,7 @@
 package com.wt.common.security.dao;
 
 import com.wt.common.security.domain.SecurityUser;
+import org.apache.ibatis.annotations.Options;
 import org.apache.ibatis.annotations.Param;
 
 import java.io.Serializable;
@@ -25,6 +26,7 @@ public interface SecurityUserMapper {
      * 添加用户
      * @param securityUser 用户信息
      */
+    @Options(useGeneratedKeys = true, keyProperty = "entity.userId")
     void add(@Param("entity") SecurityUser securityUser);
 
     /**

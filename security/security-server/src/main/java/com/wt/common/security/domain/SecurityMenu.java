@@ -5,6 +5,8 @@ import com.wt.master.core.annotation.Table;
 import com.wt.master.core.base.BaseEntity;
 import lombok.Data;
 
+import java.io.Serializable;
+
 @Data
 @Table(tableName = "SecurityMenuT")
 public class SecurityMenu extends BaseEntity {
@@ -12,7 +14,7 @@ public class SecurityMenu extends BaseEntity {
      * 菜单ID
      */
     @Id("menuId")
-    private Integer menuId;
+    private Serializable menuId;
     /**
      * 菜单名称
      */
