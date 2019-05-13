@@ -4,6 +4,12 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
+    <parent>
+        <groupId>com.wt.master</groupId>
+        <artifactId>root</artifactId>
+        <version>1.0-SNAPSHOT</version>
+    </parent>
+
     <groupId>com.wt.common</groupId>
     <artifactId>common</artifactId>
     <version>1.0-SNAPSHOT</version>
@@ -11,16 +17,17 @@
     <name>common</name>
     <modules>
         <module>security</module>
+        <module>common-version</module>
     </modules>
 
-    <distributionManagement>
-        <repository>
-            <id>releases</id>
-            <url>http://172.17.11.52:8081/nexus/content/repositories/releases/</url>
-        </repository>
-        <snapshotRepository>
-            <id>snapshots</id>
-            <url>http://172.17.11.52:8081/nexus/content/repositories/snapshots/</url>
-        </snapshotRepository>
-    </distributionManagement>
+    <!--<distributionManagement>-->
+    <!--<repository>-->
+    <!--<id>releases</id>-->
+    <!--<url>http://192.168.0.106:8081/nexus/content/repositories/releases/</url>-->
+    <!--</repository>-->
+    <!--<snapshotRepository>-->
+    <!--<id>snapshots</id>-->
+    <!--<url>http://192.168.0.106:8081/nexus/content/repositories/snapshots/</url>-->
+    <!--</snapshotRepository>-->
+    <!--</distributionManagement>-->
 </project>
